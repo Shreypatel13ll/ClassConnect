@@ -13,7 +13,7 @@ export async function getClassroomByTeacherId(teacherId: number) {
 }
 
 export async function getClassroomByStudentId(studentId: number) {
-    const query = 'SELECT * FROM classrooms WHERE id IN (SELECT classroom_id FROM student_classrooms WHERE student_id = $1)';
+    const query = 'SELECT * FROM classrooms WHERE id IN (SELECT classroom_id FROM student_classroom WHERE student_id = $1)';
     const { rows } = await pool.query(query, [studentId]);
     return rows;
 }
@@ -25,13 +25,13 @@ export async function createClassroom(teacherId: number, name: string) {
 }
 
 export async function addStudentToClassroom(studentId: number, classroomId: number) {
-    const query = 'INSERT INTO student_classrooms (student_id, classroom_id) VALUES ($1, $2) RETURNING *';
+    const query = 'INSERT INTO student_classroom (student_id, classroom_id) VALUES ($1, $2) RETURNING *';
     const { rows } = await pool.query(query, [studentId, classroomId]);
     return rows[0];
 }
 
 export async function removeStudentFromClassroom(studentId: number, classroomId: number) {
-    const query = 'DELETE FROM student_classrooms WHERE student_id = $1 AND classroom_id = $2';
+    const query = 'DELETE FROM student_classroom WHERE student_id = $1 AND classroom_id = $2';
     await pool.query(query, [studentId, classroomId]);
 }
 

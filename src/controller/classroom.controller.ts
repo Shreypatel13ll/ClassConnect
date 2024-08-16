@@ -3,7 +3,8 @@ import { addStudentToClassroom, removeStudentFromClassroom, editClassroomName, d
 import { assignTaskToClassroom } from "../queries/task.queries";
 
 export async function addStudent(req: Request, res: Response) {
-    const { studentId, classroomId } = req.params;
+    const { classroomId } = req.params;
+    const { studentId } = req.body;
     try {
         const student = await addStudentToClassroom(Number(studentId), Number(classroomId));
         res.status(201).json(student);
@@ -24,10 +25,10 @@ export async function removeStudent(req: Request, res: Response) {
 
 export async function editClassroom(req: Request, res: Response) {
     const { classroomId } = req.params;
-    const { name } = req.body;
+    const { classroomName } = req.body;
     try {
-        const classroom = await editClassroomName(Number(classroomId), name);
-        res.status(200).json(classroom);
+        const classroom = await editClassroomName(Number(classroomId), classroomName);
+        res.send("Classroom updated successfully.");
     } catch (error:any) {
         res.status(400).json({ error: error.message });
     }

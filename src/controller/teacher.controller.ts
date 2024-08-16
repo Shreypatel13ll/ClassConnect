@@ -4,8 +4,8 @@ import { getClassroomByTeacherId, createClassroom } from '../queries/classroom.q
 const addClassroom = (req:Request, res: Response) => {
     try{
         const teacherId = parseInt(req.params.teacherId);
-        const { name } = req.body;
-        createClassroom(teacherId, name).then((classroom) => {
+        const { classroomName } = req.body;
+        createClassroom(teacherId, classroomName).then((classroom) => {
             res.status(201).json(classroom);
         }).catch((error) => {
             res.status(500).json({ error: error.message });
