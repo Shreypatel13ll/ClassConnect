@@ -40,6 +40,6 @@ CREATE TABLE task_submissions (
     student_id INT NOT NULL REFERENCES students(id) ON DELETE CASCADE,
     task_id INT NOT NULL REFERENCES tasks(id) ON DELETE CASCADE,
     submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    document BYTEA, -- To store the submitted document, you can change the type as per requirement
+    document BYTEA, -- Not fixed yet
     UNIQUE (student_id, task_id)
 );
