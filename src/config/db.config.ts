@@ -1,45 +1,16 @@
 import * as pkg from "pg";
-import dotenv from 'dotenv';
+import environment from "./environment";
 
-dotenv.config();
-
-let DbConfig;
-
-if (process.env.NODE_ENV === 'test') {
-  // Test Db Configuration ie.Docker db
-  DbConfig = {
-    user: "postgres",
-    host: "postgres",
-    database: "db_test",
-    password: "postgresql",
-    port: 5432,
-  };
-
-} else if (process.env.NODE_ENV !== 'production') {
-  // Development Db Configuration
-  DbConfig = {
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME_TEST,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  };
-} else {
-  // Production Db Configuration
-  DbConfig = {
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  };
-}
+let DbConfig = {
+  user: environment.DB_USER,
+  host: environment.DB_HOST,
+  database: environment.DB_NAME,
+  password: environment.DB_PASSWORD,
+  port: +(environment.DB_PORT),
+  ssl: {
+    rejectUnauthorized: false
+  }
+};
 
 const { Pool } = pkg;
 
