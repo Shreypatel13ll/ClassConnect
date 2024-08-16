@@ -3,7 +3,7 @@
 ### Prerequisites
 
 - Node.js
-- PostgreSQL
+- PostgreSQL (Hosted on diditalOcean droplet)
 
 ### Installation
 
